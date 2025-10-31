@@ -8,7 +8,7 @@ endpoint = 'http://localhost:8000/api/'
 #                        data={"key": "value"},
 #                        json={"key1": "value1"},)
 
-response = requests.get(endpoint, params={'abc': '123'}, json={'client': 'hey api'})
+response = requests.post(endpoint, json={'title': 'hey api title', 'content': 'hey api content'})
 
 print(response.json())
 
