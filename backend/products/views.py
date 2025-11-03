@@ -1,4 +1,8 @@
+from django.template.defaultfilters import title
 from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 from .models import Product
 from .serializers import ProductSerializer
@@ -25,3 +29,33 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 #class ProductListAPIView(generics.ListAPIView):
 #    queryset = Product.objects.all()
 #    serializer_class = ProductSerializer
+
+@api_view(['GET', 'POST'])
+def product_alt_view(request, pk=None, *args, **kwargs):
+
+    if request.method == 'GET':
+
+        if pk is not None:
+            # detail view
+            return Response(
+                ProductSerializer(
+                    get_object_or_404(Product, pk=pk),
+                    many=False
+                ).data
+            )
+
+        # list view
+        qs = Product.objects.all()
+        data = ProductSerializer(qs, many=True).data
+        return Response(data)
+
+    if request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            title = serializer.validated_data['title']
+            content = serializer.validated_data['content'] or None
+            if content is None:
+                content = title
+            serializer.save(content=content)
+            return Response(serializer.data)
+        return None
