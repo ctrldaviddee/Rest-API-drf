@@ -43,6 +43,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'price',
             'sale_price',
             # 'discount',
+            'public',
         ]
         # fields = '__all__'
 

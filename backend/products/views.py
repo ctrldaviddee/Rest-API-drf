@@ -1,4 +1,3 @@
-from typing import override
 from rest_framework import generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
