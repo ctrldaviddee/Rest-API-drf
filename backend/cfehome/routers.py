@@ -7,4 +7,4 @@ router.register(prefix='products-abc', viewset=ProductGenericViewSet, basename='
 
 urlpatterns = router.urls
 
-print(urlpatterns)
+#print(urlpatterns)

@@ -11,12 +11,14 @@ class ProductSerializer(serializers.ModelSerializer):
         view_name='product-detail',
         lookup_field='pk',
     ) # The HyperLinkedIdentityField only works on a model Serializer
+    # email = serializers.EmailField(write_only=True)
     class Meta:
         model = Product
         fields = [
             'an_url',
             'url',
             'edit_url',
+            # 'email',
             'id',
             'title',
             'content',
@@ -26,6 +28,19 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
         # fields = '__all__'
 
+    # not really practical
+    #def create(self, validated_data):
+        # return Product.objects.create(**validated_data)
+        # email = validated_data.pop('email')
+    #    obj = super().create(validated_data)
+        # print(email, obj)
+    #    return obj
+
+    #def update(self, instance, validated_data):
+    #    email = validated_data.pop('email')
+        # instance.title = validated_data.get('title')
+        # return instance
+    #    return super().update(instance, validated_data)
 
     def get_url(self, obj):
         request = self.context.get('request')
@@ -56,7 +71,4 @@ class ProductSerializer(serializers.ModelSerializer):
         if not hasattr(obj, 'id'):
             return None
 
-        if not isinstance(obj, Product):
-            return None
-
-        return obj.get_discount()
+        return None if not isinstance(obj, Product) else obj.get_discount()
