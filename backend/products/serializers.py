@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from .models import Product
-from .validators import validate_title
+from .validators import validate_title_no_hello, unique_product_title
 
 class ProductSerializer(serializers.ModelSerializer):
     discount = serializers.SerializerMethodField(read_only=True)
@@ -11,12 +11,14 @@ class ProductSerializer(serializers.ModelSerializer):
         view_name='product-detail',
         lookup_field='pk',
     ) # The HyperLinkedIdentityField only works on a model Serializer
+
     # email = serializers.EmailField(write_only=True)
 
-    title = serializers.CharField(validators=[validate_title])
+    title = serializers.CharField(validators=[validate_title_no_hello, unique_product_title])
     class Meta:
         model = Product
         fields = [
+            # 'user',
             'an_url',
             'url',
             'edit_url',
