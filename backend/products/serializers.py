@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from .models import Product
-
+from .validators import validate_title
 
 class ProductSerializer(serializers.ModelSerializer):
     discount = serializers.SerializerMethodField(read_only=True)
@@ -12,6 +12,8 @@ class ProductSerializer(serializers.ModelSerializer):
         lookup_field='pk',
     ) # The HyperLinkedIdentityField only works on a model Serializer
     # email = serializers.EmailField(write_only=True)
+
+    title = serializers.CharField(validators=[validate_title])
     class Meta:
         model = Product
         fields = [
@@ -27,6 +29,12 @@ class ProductSerializer(serializers.ModelSerializer):
             'discount',
         ]
         # fields = '__all__'
+
+#    def validate_title(self, value):
+#        qs = Product.objects.filter(title__iexact=value)
+#        if qs.exists():
+#            raise serializers.ValidationError('This title has already been used.')
+#        return value
 
     # not really practical
     #def create(self, validated_data):
