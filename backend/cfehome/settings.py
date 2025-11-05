@@ -37,12 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # third party api services
+    'algoliasearch_django',
+   
+    # third party packages
     'rest_framework',
     'rest_framework.authtoken',
+    
+    # internal apps
     'api',
     'products',
     'search',
-]
+   ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -136,4 +143,11 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE' : 10
+}
+
+# django-dotenv
+ALGOLIA = {
+    'APPLICATION_ID': 'CTIMTH96PI',
+    'API_KEY': '55d83768de6f1f6ab4db5f51f5f13597', 
+    'INDEX_PREFIX' : 'cfe',
 }

@@ -1,7 +1,10 @@
+import random
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from typing import override
+
+TAGS_MODEL_VALUES = ['electronics', 'cars', 'boats', 'movies', 'cameras']
 
 User = settings.AUTH_USER_MODEL # a string to auth.User
 
@@ -34,7 +37,13 @@ class Product(models.Model):
     public = models.BooleanField(default=True)
     
     objects = ProductManager()
+    
+    def is_public(self):
+        return self.public
 
+    def get_tags_list(self):
+        return [random.choice(TAGS_MODEL_VALUES)]
+    
     @property
     def sale_price(self):
         return '%.2f' %(float(self.price) * .8)
