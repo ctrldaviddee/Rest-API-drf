@@ -18,7 +18,7 @@ function handleLogin(e) {
   const options = {
     method: 'POST',
     headers: {
-      'ContentType': 'application/json'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(loginObjectData),
   };
