@@ -157,7 +157,7 @@ REST_FRAMEWORK = {
 # django-dotenv
 ALGOLIA = {
     'APPLICATION_ID': 'CTIMTH96PI',
-    'API_KEY': '55d83768de6f1f6ab4db5f51f5f13597', 
+    'API_KEY': '0eca4eeccb48b70e23006979d083c3fc', 
     'INDEX_PREFIX' : 'cfe',
 }
 
